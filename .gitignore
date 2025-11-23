@@ -5,6 +5,28 @@ build/
 dist/
 wheels/
 *.egg-info
+*.pyc
 
 # Virtual environments
 .venv
+.env
+venv/
+env/
+
+
+
+# Data
+data/user_profiles/*.json
+!data/user_profiles/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/secrets.toml
