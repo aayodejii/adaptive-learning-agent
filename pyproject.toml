@@ -1,7 +1,9 @@
 [project]
 name = "adaptive-learning-agent"
 version = "0.1.0"
-description = "Add your description here"
+description = ""
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pydantic>=2.12.4",
+]
