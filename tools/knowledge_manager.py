@@ -7,9 +7,9 @@ import os
 import json
 from pathlib import Path
 
-from langchain.tools import BaseTool
+from langchain_core.tools import BaseTool
 from typing import Optional, Type
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 from models.schemas import UserProfile
 
@@ -47,6 +47,10 @@ class KnowledgeProfileManager(BaseTool):
     """
     args_schema: Type[BaseModel] = KnowledgeProfileInput
 
+    storage_path: Path = Field(default_factory=lambda: Path("data/user_profiles"))
+
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
     def __init__(self):
         super().__init__()
         self.storage_path = Path("data/user_profiles")
@@ -65,7 +69,6 @@ class KnowledgeProfileManager(BaseTool):
                 data = json.load(f)
                 return UserProfile(**data)
         else:
-            # Create new profile
             return UserProfile(user_id=user_id)
 
     def _save_profile(self, profile: UserProfile):
@@ -129,7 +132,7 @@ class KnowledgeProfileManager(BaseTool):
             output.append(f"  Average Score: {data['avg_score']:.1f}%")
             output.append(f"  Modules Completed: {len(data['modules'])}")
 
-            for module in data["modules"][-3:]:  # Last 3 modules
+            for module in data["modules"][-3:]:
                 output.append(f"    - {module['title']}: {module['score']:.1f}%")
 
         return "\n".join(output)
