@@ -33,9 +33,7 @@ class StreamlitCallbackHandler(BaseCallbackHandler):
             self.trace_log[-1]["output"] = str(output)[:200]
 
 
-st.set_page_config(
-    page_title="PLPGA - AI Learning Assistant", page_icon="", layout="wide"
-)
+st.set_page_config(page_title="AI Learning Assistant", page_icon="", layout="wide")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
